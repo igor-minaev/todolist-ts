@@ -2,13 +2,15 @@ import React, {ChangeEvent, FC, useState, KeyboardEvent} from 'react';
 import {FilterValuesType} from "./App";
 
 type TodoListPropsType = {
+    todoListId: string
     title: string
     filter: FilterValuesType
     tasks: Array<TaskType>
-    removeTask: (taskId: string) => void
-    changeFilter: (filter: FilterValuesType) => void
-    addTask: (title: string) => void
-    changeTaskStatus: (taskId: string, isDone: boolean) => void
+    removeTask: (todoListId: string, taskId: string) => void
+    changeTodoListFilter: (todoListId: string, filter: FilterValuesType) => void
+    addTask: (todoListId: string, title: string) => void
+    changeTaskStatus: (todoListId: string, taskId: string, isDone: boolean) => void
+    removeTodolist: (todoListsId: string) => void
 }
 
 export type TaskType = {
@@ -24,8 +26,8 @@ const TodoList: FC<TodoListPropsType> = (props) => {
 
     const tasksItems = props.tasks.length ?
         props.tasks.map((task) => {
-            const removeTask = () => props.removeTask(task.id)
-            const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(task.id, e.currentTarget.checked)
+            const removeTask = () => props.removeTask(props.todoListId, task.id)
+            const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(props.todoListId, task.id, e.currentTarget.checked)
             const taskClass = task.isDone ? 'task done' : 'task'
 
             return (
@@ -41,7 +43,7 @@ const TodoList: FC<TodoListPropsType> = (props) => {
     const addTask = () => {
         const trimmedTitle = title.trim()
         if (trimmedTitle !== '') {
-            props.addTask(trimmedTitle)
+            props.addTask(props.todoListId, trimmedTitle)
         } else {
             setError(true)
         }
@@ -53,16 +55,19 @@ const TodoList: FC<TodoListPropsType> = (props) => {
         setTitle(e.currentTarget.value)
     }
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && addTask()
+    const removeTodoList = () => props.removeTodolist(props.todoListId)
 
-
-    const handlerCreator = (filter: FilterValuesType) => () => props.changeFilter(filter)
+    const handlerCreator = (filter: FilterValuesType) => () => props.changeTodoListFilter(props.todoListId, filter)
     const errorMessage = error && <p style={{color: 'red', fontWeight: 'bold', margin: '0'}}>Title is required</p>
     const inputErrorClass = error ? 'input-error' : ''
 
 
     return (
         <div>
-            <h3>{props.title}</h3>
+            <h3>
+                {props.title}
+                <button onClick={removeTodoList}>x</button>
+            </h3>
             <div>
                 <input className={inputErrorClass} value={title} onChange={onChangeHandler}
                        onKeyDown={onKeyDownHandler}

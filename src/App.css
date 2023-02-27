@@ -1,11 +1,11 @@
-.App {
+/*.App {
     padding: 30px;
     display: flex;
 }
 
 .App > div {
     margin-right: 50px;
-}
+}*/
 
 .done {
     text-decoration: line-through;
@@ -16,21 +16,15 @@
     font-weight: bold;
 }
 
-.btn-active {
+/*.btn-active {
     color: white;
     background-color: hotpink;
     border: 2px solid hotpink;
     border-radius: 3px;
-}
+}*/
 
-.input-error {
+/*.input-error {
     border: 2px solid red;
     outline: none;
-}
+}*/
 
-.addItemForm {
-    border: 2px solid hotpink;
-    border-radius: 3px;
-    padding: 10px;
-    height: fit-content;
-}

@@ -1,4 +1,6 @@
 import React, {ChangeEvent, FC, KeyboardEvent, useRef, useState} from 'react';
+import AddTaskIcon from '@mui/icons-material/AddTask';
+import {IconButton, TextField} from "@mui/material";
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -44,15 +46,19 @@ export const AddItemForm: FC<AddItemFormPropsType> = (props) => {
 
 
     return (
-        <div className={'addItemForm'}>
-            <input className={inputErrorClass}
-                //ref={addItemFormRef}
-                   value={title}
-                   onChange={onChangeHandler}
-                   onKeyDown={onKeyDownHandler}
-            />
-            <button onClick={addItem}>+</button>
-            {errorMessage}
+        <div>
+            <TextField variant='outlined'
+                       size='small'
+                       label="Enter title"
+                       error={error}
+                       helperText={error && 'Title is required!'}
+                       value={title}
+                       onChange={onChangeHandler}
+                       onKeyDown={onKeyDownHandler}/>
+
+            <IconButton onClick={addItem} color='secondary'>
+                <AddTaskIcon/>
+            </IconButton>
         </div>
     );
 };

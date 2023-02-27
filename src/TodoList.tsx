@@ -2,6 +2,8 @@ import React, {ChangeEvent, FC} from 'react';
 import {FilterValuesType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
+import {Button, Checkbox, IconButton} from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 type TodoListPropsType = {
     todoListId: string
@@ -34,10 +36,12 @@ const TodoList: FC<TodoListPropsType> = (props) => {
 
             return (
                 <li key={task.id} className={taskClass}>
-                    <input type="checkbox" onChange={changeTaskStatus} checked={task.isDone}/>
+                    <Checkbox onChange={changeTaskStatus} checked={task.isDone}/>
                     {/*<span>{task.title}</span>*/}
                     <EditableSpan title={task.title} changeTitle={changeTaskTitle}/>
-                    <button onClick={removeTask}>x</button>
+                    <IconButton color="secondary" onClick={removeTask}>
+                        <DeleteIcon/>
+                    </IconButton>
                 </li>
             )
         })
@@ -55,21 +59,35 @@ const TodoList: FC<TodoListPropsType> = (props) => {
             <h3>
                 {/*{props.title}*/}
                 <EditableSpan title={props.title} changeTitle={changeTodoListTitle}/>
-                <button onClick={removeTodoList}> x</button>
+                <IconButton color="secondary" onClick={removeTodoList}>
+                    <DeleteIcon/>
+                </IconButton>
             </h3>
             <AddItemForm addItem={addTask}/>
             <ul>
                 {tasksItems}
             </ul>
             <div>
-                <button className={props.filter === 'all' ? 'btn-active' : ''} onClick={handlerCreator('all')}>All
-                </button>
-                <button className={props.filter === 'active' ? 'btn-active' : ''}
-                        onClick={handlerCreator('active')}>Active
-                </button>
-                <button className={props.filter === 'completed' ? 'btn-active' : ''}
-                        onClick={handlerCreator('completed')}>Completed
-                </button>
+                <Button
+                    sx={{mr: '3px'}}
+                    variant={props.filter === 'all' ? 'outlined' : 'contained'}
+                    color={'primary'}
+                    size={'small'}
+                    disableElevation
+                    onClick={handlerCreator('all')}>All</Button>
+                <Button
+                    sx={{mr: '3px'}}
+                    variant={props.filter === 'active' ? 'outlined' : 'contained'}
+                    color={'primary'}
+                    size={'small'}
+                    disableElevation
+                    onClick={handlerCreator('active')}>Active</Button>
+                <Button
+                    variant={props.filter === 'completed' ? 'outlined' : 'contained'}
+                    color={'primary'}
+                    size={'small'}
+                    disableElevation
+                    onClick={handlerCreator('completed')}>Completed</Button>
             </div>
         </div>
     )

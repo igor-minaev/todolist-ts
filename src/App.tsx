@@ -14,7 +14,7 @@ export type TodoListType = {
     filter: FilterValuesType
 }
 
-type TasksStateType = {
+export type TasksStateType = {
     [todolistId: string]: Array<TaskType>
 }
 
@@ -97,10 +97,9 @@ function App() {
     const todoListComponents = todolists.length ? todolists.map(tl => {
             const filteredTasksForRender: Array<TaskType> = getFilteredTasksForRender(tasks[tl.id], tl.filter)
             return (
-                <Grid item>
+                <Grid item key={tl.id}>
                     <Paper elevation={3} sx={{p: '10px'}}>
                         <TodoList
-                            key={tl.id}
                             todoListId={tl.id}
                             title={tl.title}
                             filter={tl.filter}

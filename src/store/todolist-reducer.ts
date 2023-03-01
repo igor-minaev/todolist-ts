@@ -12,6 +12,7 @@ export type AddTodolistAT = {
     type: 'ADD-TODOLIST'
     payload: {
         title: string
+        todolistId:string
     }
 }
 
@@ -38,10 +39,9 @@ export const todolistsReducer = (todolists: Array<TodoListType>, action: ActionT
         case 'REMOVE-TODOLIST':
             return todolists.filter(tl => tl.id !== action.payload.todolistId)
         case 'ADD-TODOLIST':
-            const newTodolistId = v1()
             const newTodolist: TodoListType =
                 {
-                    id: newTodolistId,
+                    id: action.payload.todolistId,
                     title: action.payload.title,
                     filter: 'all'
                 }
@@ -65,7 +65,7 @@ export const RemoveTodolistAC = (todolistId: string): RemoveTodolistAT => ({
     type: 'REMOVE-TODOLIST',
     payload: {todolistId}
 })
-export const AddTodolistAC = (title: string): AddTodolistAT => ({type: 'ADD-TODOLIST', payload: {title}})
+export const AddTodolistAC = (title: string): AddTodolistAT => ({type: 'ADD-TODOLIST', payload: {title,todolistId:v1()}})
 export const ChangeTodoListFilterAC = (todolistId: string, filter: FilterValuesType): ChangeTodoListFilterAT => ({
     type: 'CHANGE-TODOLIST-FILTER',
     payload: {todolistId, filter}

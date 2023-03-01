@@ -6,7 +6,7 @@ import {
     ChangeTodoListTitleAT,
     RemoveTodolistAC,
     todolistsReducer
-} from "./todolist-reducers";
+} from "./todolist-reducer";
 
 
 test('correct todolist should be removed', () => {

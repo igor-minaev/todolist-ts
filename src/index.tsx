@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
+import AppWithReducers from "./AppWithReducers";
 
 const theme = createTheme({
     palette: {
@@ -22,7 +23,7 @@ const root = ReactDOM.createRoot(
 root.render(
     <React.StrictMode>
         <ThemeProvider theme={theme}>
-            <App/>
+            <AppWithReducers/>
         </ThemeProvider>
     </React.StrictMode>
 );

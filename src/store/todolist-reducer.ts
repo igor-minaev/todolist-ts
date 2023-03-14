@@ -32,7 +32,7 @@ export type ChangeTodoListTitleAT = {
     }
 }
 
-type ActionType = RemoveTodolistAT | AddTodolistAT | ChangeTodoListFilterAT | ChangeTodoListTitleAT
+export type ActionType = RemoveTodolistAT | AddTodolistAT | ChangeTodoListFilterAT | ChangeTodoListTitleAT
 
 export const todolistsReducer = (todolists: Array<TodoListType>, action: ActionType): Array<TodoListType> => {
     switch (action.type) {
